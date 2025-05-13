@@ -1,37 +1,77 @@
-// app/about/page.tsx
-import styles from "@/app/styles.module.css"
-import ContentBlock from "@/components/ContentBlock"
+import styles from '../styles.module.css'
+import Image from 'next/image'
+import ContentBlock from '@/components/ContentBlock'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "BSTについて",
+    description: "BSTは創業から順調に成長を続けています。20代から30代のスタッフが多く、年齢や性別に関係なく望む方にはスキルアップ・キャリアアップできる機会があります。"
+    
+}
+
+// export async function generateMetadata({params}) {
+//     return {
+//         title: "About"
+//     }
+// }
+
+function ItemFeature({title, content}: {title:string, content:string}) {
+
+    return (
+        <div className={styles.itemFeature}>
+            <h3 className="font-display mb-2">{title}</h3>
+            <p className={styles.grey}>{content}</p>
+        </div>
+    )
+}
 
 export default function Page() {
+
+    const listFeatures = [
+        {
+            title: "成果物に対する方向性",
+            content: "私たちは、単なる成果物を追求するのではなく、お客様の長期的な目標に沿った大局的な視点で努力を集中させています。"
+        },
+        {
+            title: "手続きよりもスピード",
+            content: "製品の開発速度は非常に重要です。私たちは、創業者が迅速なイテレーションと競争力のある文化を築く手助けをします。"
+        },
+        {
+            title: "取引よりも協力",
+            content: "私たちは、単なるビジネスのやり取りではなく、長期的なパートナーシップとお互いの成長を重視しています。"
+        },
+        {
+            title: "量よりも質",
+            content: "ただ数を増やすのではなく、本当に価値のある製品を作り上げます。"
+        }
+    ]
+
     return (
         <main className={styles.main}>
             <section className={styles.section}>
-                <h1 className="font-bold font-display">採用情報</h1>
-                <img src="/recruit_01.png" alt="" />
-                <p>BST創業メンバーは、ブラック企業や傲岸不遜なワンマン社長らの元で艱難辛苦を味わってきました。出身企業は様々ですが、経営が傾いたり事業撤退の憂き目も見ています。</p>
-                <p>その艱難辛苦の中、日々スキルを研鑽し独立も可能になった同志により、同じような想いを持った人たちが働く幸せを感じることができる会社を目指し設立されました。</p>
+                <h1 className='font-display font-bold'>
+                BSTについて
+                </h1>
+                <Image
+                    src="/about_01.png"
+                    width={620}
+                    height={300}
+                    alt='BSTメインオフィス'
+                    className='w-full'
+                />
+                <p className={styles.grey}>BSTは創業から順調に成長を続けています。20代から30代のスタッフが多く、年齢や性別に関係なく望む方にはスキルアップ・キャリアアップできる機会があります。</p>
+                <p>プロジェクトの中心メンバーとして若手スタッフが活躍するケースも多く見られます。</p>
             </section>
 
             <ContentBlock
-            subtitle="Xさんインタビュー"
-            title="良い意味で「小さな会社」を探し、BSTに入社を決める。"
-            text="入社した経緯は？<br>
-            以前は数百名のスタッフが働く企業に勤めていたんですが、自分の担当している領域が狭かったこともあって、あまり日々の充実感はありませんでした…。<br>
-            なので転職先の候補として、良い意味で「小さな会社」を探していました。<br>
-            BSTでは経営者との距離が近く、直接ビジョンや仕事に対する見解を聞くことができる環境でしたので、入社を決めました。"
-            images={
-                [
-                    {
-                        path:"recruit_02.png",
-                        alt:"ウェブデザイナーXさん"
-                    }
-                ]
-            }
-            />
+                subtitle='Our Strengths'
+                title='私達の強み'
+            >          
+                {listFeatures.map((feature) => (
+                    <ItemFeature key={feature.title} title={feature.title} content={feature.content} />
+                ))}
+            </ContentBlock>
 
-
-
-       
         </main>
-    );
+    )
 }

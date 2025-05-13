@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/Footer";
-import styles from "@/app/styles.module.css"
+import styles from "./styles.module.css"
 import NavBar from "@/components/NavBar";
 
 export const metadata: Metadata = {
@@ -15,14 +15,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  console.log("Test")
+
+  
+
   return (
     <html lang="ja">
       <body
         className={`antialiased`}
       >
-        <NavBar />
+        <NavBar/>
         {children}
-        <Footer />
+        <Footer/>
       </body>
     </html>
   );
