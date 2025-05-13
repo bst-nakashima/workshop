@@ -59,17 +59,21 @@ export default async function Page({ searchParams }) {
                     className={stylesWorks.itemWorks}
                 >
                     <Link
-                        href={post.link}
+                        href={`works/${post.id.toString()}`}
                     >   
                         {/* TODO: アイキャッチがない場合の処理 */}
-                        <figure className={stylesWorks.figure}>
-                            <Image
+                        {
+                            post._embedded['wp:featuredmedia'][0] && (
+                                <figure>
+                                     <Image
                                 src={post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.source_url}
                                 width={post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.width}
                                 height={post._embedded['wp:featuredmedia'][0].media_details.sizes.medium.height}
                                 alt={post._embedded['wp:featuredmedia'][0].caption.rendered}
-                            ></Image>                        
-                        </figure>
+                            ></Image>            
+                                </figure>
+                            )
+                        }
                                     
                         <div className={stylesWorks.textWrapper}>
                             <h3>{post.title.rendered}</h3>
