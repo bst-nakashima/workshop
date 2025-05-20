@@ -1,8 +1,5 @@
 /* ./app/styles.module.css */ 
-:root {
-  --gap-section: 7rem;
-  }
-  
+
   .main {
       width: 100%;
       max-width: 672px;
@@ -18,9 +15,15 @@
   .section {
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;    
-  
-      h1 {
+      gap: 1.4rem; 
+      
+      .subtitle {        
+          font-size: 90%;
+          text-transform: uppercase;
+      }
+  }
+
+     .section :global(h1) {
           font-size: 1.6rem;
           line-height: 1.5;
           letter-spacing: 0.0625em;
@@ -29,27 +32,22 @@
           }
       }
   
-      h2 {
+      .section :global(h2) {
           font-size: 1rem;
       }
   
-      p {
+      .section :global(p) {
           font-weight: 400;
           line-height: 1.7;
           letter-spacing: 0.01rem;
       }
   
-      img {
+      .section :global(img) {
           border-radius: 0.4rem;
           box-shadow: 0 0 10px 1px rgba(0,0,0,0.15);
           margin-top: 1.2rem;
       }
-      
-      .subtitle {        
-          font-size: 90%;
-          text-transform: uppercase;
-      }
-  }
+  
   
   .siteTitle {
       border-bottom: 1px solid #888888;
@@ -62,11 +60,12 @@
   
   .wrapperImage {
       display: grid;
-      img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
-      }
+  }
+
+  .wrapperImage :global(img) {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 
 

@@ -41,32 +41,32 @@ interface WpPost {
       txt01_01: string;
       s_headline01_02: string;
       txt01_02: string;
-      image01: string;
+      image01: string | false;
       b_headline02: string;
       s_headline02_01: string;
       txt02_01: string;
       s_headline02_02: string;
       txt02_02: string;
-      image02: string;
+      image02: string | false;
       b_headline03: string;
       s_headline03_01: string;
       txt03_01: string;
       s_headline03_02: string;
       txt03_02: string;
-      image03: string;
+      image03: string | false;
       b_headline04: string;
       s_headline04_01: string;
       txt04_01: string;
       s_headline04_02: string;
       txt04_02: string;
-      image04: string | boolean;
+      image04: string | false;
       handle: string;
       url: string;
-      image05: string | boolean;
-      image06: string | boolean;
-      image07: string | boolean;
-      image08: string | boolean;
-      image09: string | boolean;
+      image05: string | false;
+      image06: string | false;
+      image07: string | false;
+      image08: string | false;
+      image09: string | false;
       link: string;
       description_text: string;
     };
@@ -132,23 +132,31 @@ export default async function Page( {params} :
                     <h3>{post.acf.s_headline01_01}</h3>
                     <p dangerouslySetInnerHTML={{__html: post.acf.txt01_01}}></p>
 
-                    <Image
-                        src={post.acf.image01}
-                        alt="ビジネスしている様子"
-                        width={1200}
-                        height={700}
-                    ></Image>
+                    {
+                      post.acf.image01 && (
+                        <Image
+                          src={post.acf.image01}
+                          alt="ビジネスしている様子"
+                          width={1200}
+                          height={700}
+                        ></Image>
+                      )
+                    }
 
 
                     <h3>{post.acf.s_headline02_01}</h3>
                     <p dangerouslySetInnerHTML={{__html: post.acf.txt02_01}}></p>
 
-                    <Image
-                        src={post.acf.image02}
-                        alt={post.acf["catch-copy"]}
-                        width={1200}
-                        height={700}
-                    ></Image>
+                    {
+                      post.acf.image02 && (
+                        <Image
+                            src={post.acf.image02}
+                            alt={post.acf["catch-copy"]}
+                            width={1200}
+                            height={700}
+                        ></Image>
+                      )
+                    }
 
                     <h2>{post.acf.b_headline03}</h2>
                     <h3>{post.acf.s_headline03_01}</h3>
