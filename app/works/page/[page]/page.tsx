@@ -1,21 +1,22 @@
 import styles from "@/app/styles.module.css"
-import stylesWorks from "./stylesWorks.module.css"
+import stylesWorks from "@/app/works/stylesWorks.module.css"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { promises } from "dns"
 
 export const dynamic = "force-static"
 
 export async function generateStaticParams() {
     const endpoint = 'https://bstinc.co.jp/wp-json/wp/v2/works/'
     const filterPerPage = 'per_page=5'
-    const fetchUrl = endpoint + filterPerPage
+    const fetchUrl = endpoint + "?" + filterPerPage
 
     const data = await fetch(fetchUrl)
     const wpTotalPages = data.headers.get('x-wp-totalpages')
 
     const postPages: {page: string}[] = []
-    for(let i = 1; i <= Number(wpTotalPages); i++){
+    for( let i = 1; i <= Number(wpTotalPages); i++ ) {
         postPages.push({
             page: i.toString()
         })

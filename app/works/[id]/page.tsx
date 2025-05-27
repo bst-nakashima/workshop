@@ -2,7 +2,7 @@ import styles from "@/app/styles.module.css"
 import stylesWorks from "../stylesWorks.module.css"
 import Image from "next/image"
 import Link from "next/link"
-import { postponeWithTracking } from "next/dist/server/app-render/dynamic-rendering";
+
 
 interface WpPost {
     id: number;
@@ -98,6 +98,18 @@ interface WpPost {
       };
     };
   }
+
+export async function generateStaticParams() {
+    const endpoint = 'https://bstinc.co.jp/wp-json/wp/v2/works/'
+    const fetchUrl = endpoint
+
+    const data = await fetch(fetchUrl)
+    const posts: WpPost[] = await data.json()
+
+    return posts.map((post) => ({
+      id: post.id.toString()
+    }))
+}
 
 export default async function Page( {params} :
     { params:Promise<{id: string}>
