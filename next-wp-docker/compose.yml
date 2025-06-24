@@ -1,0 +1,41 @@
+services: ## 使用のイメージを定義
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: .docker/wp/Dockerfile
+      args:
+        DOCKER_GID: "${DOCKER_GID:-1000}"
+        DOCKER_UID: "${DOCKER_UID:-1000}"
+    container_name: wordpress ## Docker(desktop)で表示するコンテナ名
+    restart: always
+    ports:
+      - "8080:80" ## コンテナ内のポート80はホストでポート8080を使う
+    user: "1000:1000"
+    volumes:
+      - ./wp/plugins:/var/www/html/wp-content/plugins ## コンテナ内のプラグインフォルダーをローカルデータで上書き
+      - ./wp/themes:/var/www/html/wp-content/themes
+    environment:
+        WORDPRESS_DB_HOST: "${DB_HOST}"
+        WORDPRESS_DB_NAME: "${DB_NAME}"
+        WORDPRESS_DB_USER: "${DB_USER}"
+        WORDPRESS_DB_PASSWORD: "${DB_PASS}"
+        WORDPRESS_DEBUG: "${WP_DEBUG}"
+    depends_on:
+      - mysql ## mysqlコンテナが開始あと、wordpressコンテナが立ち上がる
+
+  mysql:
+    image: mysql:5.7 ## dockerhubからイメージをそのまま取得
+    container_name: mysql ## Docker(desktop)で表示するコンテナ名
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql ##　この下に新規ドッカーボリュームを作る
+    environment:
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASS}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASS}"
+
+
+volumes:
+  mysql_data: {} ##上記のvolumes: mysql_data:/var/lib/mysqlの呼ばれたボリューム
